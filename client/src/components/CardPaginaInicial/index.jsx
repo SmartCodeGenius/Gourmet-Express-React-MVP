@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import styles from './CardPaginaInicial.module.css'
 
-export default function CardPaginaInicial({ mensagem, botao, imagem }) {
+export default function CardPaginaInicial({ mensagem, botao, imagem, url }) {
   return (
     <div className={styles.cardContainer}>
         <div>
@@ -9,7 +10,7 @@ export default function CardPaginaInicial({ mensagem, botao, imagem }) {
         <div className={styles.textoBackground}>
           <h3 className={styles.texto}>{mensagem}</h3>
         </div>
-        <button className={styles.botao}>{botao}</button>
+        <Link to={url} className={styles.botao}>{botao}</Link>
     </div>
   );
 }

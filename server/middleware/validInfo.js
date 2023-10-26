@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
         return res.status(401).json("Credentiais faltando");
       } else if (!validEmail(email)) {
         return res.res.status(401).json("Email inválido");
-      }
+      } 
     } 
     
     else if (req.path === "/login") {
