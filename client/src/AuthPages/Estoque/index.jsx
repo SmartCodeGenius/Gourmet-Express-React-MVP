@@ -7,9 +7,9 @@ import styles from './Estoque.module.css';
 export default function Estoque() {
   const [produtos, setProdutos] = useState([]);
   const [idProduto, setIdProduto] = useState([]);
-  const { id } = useContext(EstabelecimentoContext);
+  const { id_estabelecimento } = useContext(EstabelecimentoContext);
 
-  const deleteProduto = async(id) => {
+  const deleteProduto = async() => {
     try {
       const response = await fetch('http://localhost:5000/produtos', {
         method: 'DELETE',
@@ -29,7 +29,7 @@ export default function Estoque() {
       try {
         const response = await fetch('http://localhost:5000/produtos', {
           method: 'GET',
-          headers: { token: localStorage.token, 'Estabelecimento-ID': id }
+          headers: { token: localStorage.token, 'Estabelecimento-ID': id_estabelecimento }
         });
 
         const parseRes = await response.json();
@@ -41,7 +41,7 @@ export default function Estoque() {
       }
     }
     getProdutos();
-  }, [id]);
+  }, [id_estabelecimento]);
 
   if (produtos.length !== 0) {
     return (
@@ -59,7 +59,7 @@ export default function Estoque() {
           </div>
         ))}
         <div className={styles.background}>
-          <Link className={styles.botaoCriarProduto} to={`/estabelecimento/${id}/criaProduto`}>Cadastrar Produto</Link>
+          <Link className={styles.botaoCriarProduto} to={`/estabelecimento/${id_estabelecimento}/criaProduto`}>Cadastrar Produto</Link>
         </div>
       </section>
     )
@@ -67,7 +67,7 @@ export default function Estoque() {
 
   return (
     <div className={styles.background}>
-      <Link className={styles.botaoCriarProduto} to={`/estabelecimento/${id}/criaProduto`}>Cadastrar Produto</Link>
+      <Link className={styles.botaoCriarProduto} to={`/estabelecimento/${id_estabelecimento}/criaProduto`}>Cadastrar Produto</Link>
     </div>
   )
 }

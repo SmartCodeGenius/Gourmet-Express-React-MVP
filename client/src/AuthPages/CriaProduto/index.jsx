@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { EstabelecimentoContext } from '../../Context/EstabelecimentoMode';
 
 export default function CriaProduto() {
-  const { id } = useContext(EstabelecimentoContext);
+  const { id_estabelecimento } = useContext(EstabelecimentoContext);
 
   const [inputs, setInputs] = useState({
     nome: '',
@@ -26,7 +26,7 @@ export default function CriaProduto() {
       
       const response = await fetch('http://localhost:5000/produtos/criaProduto', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'token': localStorage.token, 'Estabelecimento-ID': id },
+        headers: { 'Content-Type': 'application/json', 'token': localStorage.token, 'Estabelecimento-ID': id_estabelecimento },
         body: JSON.stringify(body)
       });
   
@@ -54,7 +54,7 @@ export default function CriaProduto() {
         <input type='text' className={styles.input} name={'ingredientes'} value={ingredientes} onChange={e => onChange(e)} style={{ padding: '50px 10px', fontSize: 15 }} />
 
         <div className={styles.opcoes}>
-          <Link to={`/estabelecimento/${id}/estoque`} className={styles.opcao} style={{ backgroundColor: '#FFF', color: '#000' }}>Cancelar</Link>
+          <Link to={`/estabelecimento/${id_estabelecimento}/estoque`} className={styles.opcao} style={{ backgroundColor: '#FFF', color: '#000' }}>Cancelar</Link>
           <button className={styles.opcao} style={{ backgroundColor: '#7C0B0B' }}>Confirmar</button>
         </div>
       </form>

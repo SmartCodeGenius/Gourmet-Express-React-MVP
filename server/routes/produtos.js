@@ -20,6 +20,8 @@ router.post('/criaProduto', authorization, async(req, res) => {
         const estabelecimentoId = req.headers['estabelecimento-id'];
         const { nome, preco, ingredientes } = req.body;
 
+        console.log(nome, preco, ingredientes)
+
         const dadosProduto = await pool.query('SELECT * FROM produtos WHERE nome_produto = $1', [nome]);
 
         if(dadosProduto.rows.length !== 0) {
