@@ -14,6 +14,18 @@ router.get('/', authorization, async(req, res) => {
     }
 });
 
+router.get('/getAllEstabelecimentos', authorization, async(req, res) => {
+    try {
+        let query = "SELECT * FROM estabelecimentos";
+        const estabelecimentos = await pool.query(query);
+
+        res.json(estabelecimentos.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json('Erro no servidor');
+    }
+});
+
 router.get('/:id', authorization, async(req, res) => {
     try {
         let query = "SELECT * FROM estabelecimentos WHERE id_estabelecimento = $1";
