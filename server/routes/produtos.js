@@ -41,14 +41,17 @@ router.post('/criaProduto', authorization, async(req, res) => {
 
 router.delete('/deletaProduto', authorization, async(req, res) => {
     try {
-        const produtoId = req.headers['estabelecimento-id'];
+        const produtoId = req.headers['produto-id'];
+        const estabelecimentoId = req.headers['estabelecimento-id'];
 
         console.log('Produto ID: ', produtoId);
 
-        let query = "DELETE FROM produtos WHERE id_produto = $1";
-        const estabelecimentos = await pool.query(query, [produtoId]);
+        let queryUm = "DELETE FROM produtos WHERE id_produto = $1";
+        const produtoDeletado = await pool.query(queryUm, [produtoId]);
+        let queryDois = "SELECT * FROM produtos WHERE id_estabelecimento = $1";
+        const novaListaProdutos = await pool.query(queryDois, [estabelecimentoId]);
 
-        res.json(estabelecimentos.rows);
+        res.json(novaListaProdutos.rows);
         
     } catch (err) {
         console.error(err.message);

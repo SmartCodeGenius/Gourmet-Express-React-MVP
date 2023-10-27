@@ -50,6 +50,9 @@
     background-color: #7E1701;
     font-weight: 500;
 }
+.botao:hover {
+    cursor: pointer;
+}
 
 .erro {
     color: #FF0000;

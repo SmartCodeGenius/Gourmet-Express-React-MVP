@@ -12,10 +12,20 @@ export default function Estoque() {
     try {
       const response = await fetch('http://localhost:5000/produtos/deletaProduto', {
         method: 'DELETE',
-        headers: { token: localStorage.token,'Estabelecimento-ID': id }
+        headers: { token: localStorage.token, 'Produto-ID': id, 'Estabelecimento-ID': id_estabelecimento }
       });
 
       const parseRes = await response.json();
+
+      parseRes.forEach((produto) => {
+        produto.preco_produto = parseFloat(produto.preco_produto).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      });
+
       setProdutos(parseRes);
     } catch (err) {
       console.error(err.message);
@@ -31,6 +41,16 @@ export default function Estoque() {
         });
 
         const parseRes = await response.json();
+
+        parseRes.forEach((produto) => {
+          produto.preco_produto = parseFloat(produto.preco_produto).toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          });
+        });
+
         console.log(parseRes);
         setProdutos(parseRes);
 
@@ -48,7 +68,7 @@ export default function Estoque() {
           <div key={produto.id_produto} className={styles.objProduto}>
             <div>
               <h2>{produto.nome_produto}</h2>
-              <h3>R$ {produto.preco_produto}</h3>
+              <h3>{produto.preco_produto}</h3>
             </div>
             <div>
               <Link onClick={() => alert('Ainda em desenvolvimento :)')} style={{ color: '#FFF', backgroundColor: '#F39A13' }} className={styles.opcao}>Editar</Link>
