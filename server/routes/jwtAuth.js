@@ -52,7 +52,6 @@ router.post('/login', validInfo, async (req, res) => {
         //1. destruturar req.body
         
         const { email, senha } = req.body;
-        console.log(req.body);
 
         //2. checar se usuário não existe (caso não, jogar um erro)
 

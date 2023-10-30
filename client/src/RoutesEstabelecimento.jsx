@@ -24,7 +24,6 @@ export default function RoutesEstabelecimento() {
         });
   
         const parseRes = await response.json();
-        console.log(parseRes);
         setNomeEstabelecimento(parseRes[0].nome_estabelecimento)
   
       } catch (err) {

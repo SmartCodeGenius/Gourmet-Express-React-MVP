@@ -18,9 +18,12 @@ import Footer from './components/Footer';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from './Context/Auth';
 import PaginaNEncontrada from './pages/PaginaNEncontrada';
+import { EstabelecimentoContext } from './Context/EstabelecimentoMode';
+import RoutesEstabelecimento from './RoutesEstabelecimento';
 
 export default function AppRoutes() {
   const { ehAutenticado, EhAuth, setAuth } = useContext(AuthContext);
+  const { estabelecimentoMode } = useContext(EstabelecimentoContext);
 
   useEffect(() => {
     EhAuth();
@@ -28,21 +31,22 @@ export default function AppRoutes() {
 
   return (
     <BrowserRouter>
-      {!ehAutenticado ? <Navbar /> : <RoutesAuth/>}
-
       {/* Redirecionamento para Rotas de usuário autenticado */}
-      <Routes>
+      {ehAutenticado && estabelecimentoMode ? <RoutesEstabelecimento/> : ''}
+      {ehAutenticado ? <RoutesAuth/> : ''}
 
-        {/* Rotas para usuário sem login */}
+      {!ehAutenticado ? <Navbar /> : ''}
+      {/* Rotas para usuário sem login */}
+      <Routes>
         <Route index path="/" element={!ehAutenticado ? <PaginaInicial /> : <Navigate to='/estabelecimentos' />} />
         <Route path='/login' element={!ehAutenticado ? <Login setAuth={setAuth} /> : <Navigate to='/estabelecimentos' />} />
         <Route path='/cadastro' element={!ehAutenticado ? <Cadastro setAuth={setAuth} /> : <Navigate to='/estabelecimentos' />} />
         <Route path="/planos" element={!ehAutenticado ? <Planos /> : <Navigate to='/estabelecimentos' />} />
         <Route path="/quemsomos" element={!ehAutenticado ? <QuemSomos /> : <Navigate to='/estabelecimentos' />} />
         <Route path="/suporte" element={!ehAutenticado ? <Suporte /> : <Navigate to='/estabelecimentos' />} />
-        <Route path="/*" element={!ehAutenticado ? <PaginaNEncontrada/> : ''} />
 
         {/* Erro 404 - Página não encontrada*/}
+        <Route path="/*" element={!ehAutenticado ? <PaginaNEncontrada/> : ''} />
 
       </Routes>
       {!ehAutenticado ? <Footer /> : ''}

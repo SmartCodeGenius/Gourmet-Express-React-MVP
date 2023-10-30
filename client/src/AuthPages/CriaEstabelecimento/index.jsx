@@ -38,8 +38,8 @@ export default function CriaEstabelecimento() {
         body: JSON.stringify(body)
       });
 
+      // eslint-disable-next-line
       const parseRes = await response.json();
-      console.log(parseRes);
 
       window.location.href = '/estabelecimentos';
 

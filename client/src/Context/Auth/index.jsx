@@ -4,7 +4,6 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [ehAutenticado, setEhAutenticado] = useState(false);
-    console.log('Usuario autenticado: ', ehAutenticado);
 
     const setAuth = (boolean) => {
       setEhAutenticado(boolean);

@@ -51,7 +51,6 @@ export default function Estoque() {
           });
         });
 
-        console.log(parseRes);
         setProdutos(parseRes);
 
       } catch (err) {

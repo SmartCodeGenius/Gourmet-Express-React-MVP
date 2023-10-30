@@ -29,9 +29,9 @@ export default function CriaProduto() {
         headers: { 'Content-Type': 'application/json', 'token': localStorage.token, 'Estabelecimento-ID': id_estabelecimento },
         body: JSON.stringify(body)
       });
-  
+      
+      // eslint-disable-next-line
       const parseRes = await response.json();
-      console.log(parseRes);
   
       window.history.back();
     } catch (err) {
