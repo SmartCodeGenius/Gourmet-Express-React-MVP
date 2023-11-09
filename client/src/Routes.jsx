@@ -33,7 +33,7 @@ export default function AppRoutes() {
     <BrowserRouter>
       {/* Redirecionamento para Rotas de usuário autenticado */}
       {ehAutenticado && estabelecimentoMode ? <RoutesEstabelecimento/> : ''}
-      {ehAutenticado ? <RoutesAuth/> : ''}
+      {ehAutenticado && !estabelecimentoMode ? <RoutesAuth/> : ''}
 
       {!ehAutenticado ? <Navbar /> : ''}
       {/* Rotas para usuário sem login */}

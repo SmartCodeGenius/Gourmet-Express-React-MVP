@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import SideBarEstabelecimento from './components/SideBarEstabelecimento';
 import Estoque from './AuthPages/Estoque';
-import { EstabelecimentoDetalhes } from './AuthPages/EstabelecimentoDetalhes';
+// import { EstabelecimentoDetalhes } from './AuthPages/EstabelecimentoDetalhes';
 import { useContext, useEffect } from 'react';
 import { EstabelecimentoContext } from './Context/EstabelecimentoMode';
 import CriaProduto from './AuthPages/CriaProduto';
@@ -10,6 +10,7 @@ import Graficos from './AuthPages/Graficos';
 import Promocoes from './AuthPages/Promocoes';
 import Funcionarios from './AuthPages/Funcionarios';
 import { useState } from 'react';
+import PedidoDetalhes from './AuthPages/PedidoDetalhes';
 
 export default function RoutesEstabelecimento() {
   const { id_estabelecimento, dentroDoEstabelecimento } = useContext(EstabelecimentoContext);
@@ -37,14 +38,14 @@ export default function RoutesEstabelecimento() {
     <SideBarEstabelecimento id={id_estabelecimento} dentroDoEstabelecimento={dentroDoEstabelecimento} nome={nomeEstabelecimento}>
       <Routes>
         <Route path={`/estabelecimento/${id_estabelecimento}/pedidos`} element={<Pedidos/>} />
-        <Route path={`/estabelecimento/${id_estabelecimento}/detalhes`} element={<EstabelecimentoDetalhes/>} />
+        <Route path={`/estabelecimento/${id_estabelecimento}/pedidos/detalhes`} element={<PedidoDetalhes/>} />
         <Route path={`/estabelecimento/${id_estabelecimento}/estoque`} element={<Estoque/>} />
         <Route path={`/estabelecimento/${id_estabelecimento}/criaProduto`} element={<CriaProduto/>} />
         <Route path={`/estabelecimento/${id_estabelecimento}/graficos`} element={<Graficos/>} />
         <Route path={`/estabelecimento/${id_estabelecimento}/promocoes`} element={<Promocoes/>} />
         <Route path={`/estabelecimento/${id_estabelecimento}/funcionarios`} element={<Funcionarios/>} />
         <Route path='/*' element={<button onClick={() => window.location.href = `/estabelecimento/${id_estabelecimento}/pedidos`}>Essa página não existe :( Retornar</button>} />
-        {/* Adicione mais rotas específicas do estabelecimento aqui */}
+        {/* <Route path={`/estabelecimento/${id_estabelecimento}/detalhes`} element={<EstabelecimentoDetalhes/>} /> */}
       </Routes>
   </SideBarEstabelecimento>
   )

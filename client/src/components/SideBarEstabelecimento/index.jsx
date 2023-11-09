@@ -47,7 +47,7 @@ export default function SideBar({ children, nome, id, dentroDoEstabelecimento })
       <div style={{ width: selecionado ? '300px' : '50px' }} className={styles.sidebar}>
         <div className={styles.sessao_top}>
           <h1 style={{ display: selecionado ? 'block' : 'none' }} className={styles.logo}>{nome}</h1>
-          <div style={{ marginLeft: selecionado ? '100px' : '0px' }} className={styles.bars}>
+          <div style={{ marginLeft: selecionado ? '30px' : '0px' }} className={styles.bars}>
             <FaBars onClick={alternar}/>
           </div>
         </div>
