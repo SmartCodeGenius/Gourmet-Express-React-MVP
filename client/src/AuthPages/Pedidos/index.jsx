@@ -1,15 +1,31 @@
 import styles from './Pedidos.module.css';
-import { Link } from 'react-router-dom'
-import { useContext } from 'react';
-import { EstabelecimentoContext } from '../../Context/EstabelecimentoMode';
+import Card from './Card';
+import { useEffect, useState } from 'react';
 
 export default function Pedidos() {
-    const { id_estabelecimento } = useContext(EstabelecimentoContext);
+    const [pedidos, setPedidos] = useState([])
 
     const opcoes = [{ id: 3, mensagem: 'Em Espera' }
         , { id: 3, mensagem: 'Em Preparo' }
         , { id: 3, mensagem: 'Prontos' }
     ]
+
+    useEffect(() => {
+        const pegaPedidos = async() => {
+            try {
+              const response = await fetch('http://localhost:5000/pedidos', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', 'token': localStorage.token },
+              });
+
+              const parseRes = await response.json();
+              setPedidos(parseRes);
+            } catch (err) {
+                console.error(err.message)
+            }
+        }
+        pegaPedidos();
+    }, [pedidos])
 
     return (
         <>
@@ -18,24 +34,9 @@ export default function Pedidos() {
                     <button key={opcao.id} className={styles.opcao}>{opcao.mensagem}</button>
                 ))}
             </header>
-            <section className={styles.sessaoPedidos}>
-                <div className={styles.caixa}>
-                    <div className={styles.id}>
-                        <h1>ID: 1</h1>
-                    </div>
-                    <div className={styles.descricao}>
-                        <h3>Preparo: 2 Min</h3>
-                        <h3>Tamanho: 4</h3>
-                        <div>
-                            <h3>25/10/2023</h3>
-                            <h3>11:05</h3>
-                        </div>
-                    </div>
-                    <Link className={styles.botao} to={`/estabelecimento/${id_estabelecimento}/pedidos/detalhes`}>
-                        Acessar pedido
-                    </Link>
-                </div>
-            </section>
+            {pedidos.map(pedido => (
+                <Card/>
+            ))}
         </>
     )
 }
