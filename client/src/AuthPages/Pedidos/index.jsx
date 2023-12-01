@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 export default function Pedidos() {
     const [pedidos, setPedidos] = useState([])
 
-    const opcoes = [{ id: 3, mensagem: 'Em Espera' }
-        , { id: 3, mensagem: 'Em Preparo' }
+    const opcoes = [{ id: 1, mensagem: 'Em Espera' }
+        , { id: 2, mensagem: 'Em Preparo' }
         , { id: 3, mensagem: 'Prontos' }
     ]
 
@@ -34,8 +34,8 @@ export default function Pedidos() {
                     <button key={opcao.id} className={styles.opcao}>{opcao.mensagem}</button>
                 ))}
             </header>
-            {pedidos.map(pedido => (
-                <Card/>
+            {pedidos.map((pedido, index) => (
+                <Card key={index} id={pedido.id_pedido} quantia={pedido.quantia}/>
             ))}
         </>
     )

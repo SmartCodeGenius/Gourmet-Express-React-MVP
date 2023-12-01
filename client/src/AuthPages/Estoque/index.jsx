@@ -70,7 +70,7 @@ export default function Estoque() {
               <h3>{produto.preco_produto}</h3>
             </div>
             <div>
-              <Link onClick={() => alert('Ainda em desenvolvimento :)')} style={{ color: '#FFF', backgroundColor: '#F39A13' }} className={styles.opcao}>Editar</Link>
+              {/* <Link onClick={() => alert('Ainda em desenvolvimento :)')} style={{ color: '#FFF', backgroundColor: '#F39A13' }} className={styles.opcao}>Editar</Link> */}
               <button onClick={() => {deleteProduto(produtos[0].id_produto)}} style={{ color: '#FFF', backgroundColor: '#7C0B0B' }} className={styles.opcao}>Excluir</button>
             </div>
           </div>

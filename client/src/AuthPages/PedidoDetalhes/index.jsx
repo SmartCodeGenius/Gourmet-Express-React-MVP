@@ -1,31 +1,27 @@
-import styles from './PedidoDetalhes.module.css';
-import { Link } from 'react-router-dom'
-import { useContext } from 'react';
-import { EstabelecimentoContext } from '../../Context/EstabelecimentoMode';
+import { useEffect, useState } from 'react';
+import Card from './Card';
 
 export default function PedidoDetalhes() {
-  const { id_estabelecimento } = useContext(EstabelecimentoContext);
+  const [pedidos, setPedidos] = useState([])
+
+  useEffect(() => {
+      const pegaPedidos = async() => {
+          try {
+            const response = await fetch('http://localhost:5000/pedidos', {
+              method: 'GET',
+              headers: { 'Content-Type': 'application/json', 'token': localStorage.token },
+            });
+
+            const parseRes = await response.json();
+            setPedidos(parseRes);
+          } catch (err) {
+              console.error(err.message)
+          }
+      }
+      pegaPedidos();
+  }, [pedidos])
 
   return (
-    <div className={styles.caixaPedidoDetalhes}>
-        <section className={styles.id}>
-            <h1>Pedido: 8</h1>
-            <div className={styles.data}>
-                <h3>09/11/2023</h3>
-                <h3>14:29</h3>
-            </div>
-        </section>
-        <section className={styles.pedidos}>
-            <div className={styles.pedido}>
-                <h3>Produto: Coxinha</h3>
-                <h3>Unidades: 2</h3>
-                <h3>Adicional: Com ketchup e maionese</h3>
-            </div>
-        </section>
-        <div className={styles.botoes}>
-            <Link to={`/estabelecimento/${id_estabelecimento}/pedidos`} style={{ backgroundColor: '#FFF', color: '#000', padding: 5, borderRadius: 10 }}>Voltar</Link>
-            <Link style={{ backgroundColor: '#7C0B0B', color: '#FFF', padding: 5, borderRadius: 10 }}>Confimar Pedido</Link>
-        </div>
-    </div>
+    <Card/>
   )
 }
